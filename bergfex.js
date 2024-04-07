@@ -5,6 +5,7 @@
  * By Juergen Wolf-Hofer, adapted by Kipjr
  * Apache 2.0 Licensed.
  */
+const fs = require('fs');
 
 var config= {
 	updateInterval: 30 * 60 * 1000,
@@ -149,15 +150,22 @@ async function GetBergfexInfo(){
 			var details = await getSkiAreaInfo(skiarea.slug);
 			skiarea.details = details;
 			
-			selSnowReports.push(skiarea);
+			var filename = `${skiArea.replace(/\s+/g, '_').toLowerCase()}.json`; // Generate filename based on ski area name
+            		var jsonData = JSON.stringify(skiarea, null, 2); // Get JSON data for the current ski area
+            		fs.writeFileSync(filename, jsonData); // Write JSON data to file
+            		selSnowReports.push(skiarea);
+			
 		}
 		console.log(selSnowReports)
 		var json = JSON.stringify(selSnowReports);
-		console.log(json);
+		fs.writeFileSync('snow_reports.json', JSON.stringify(data, null, 2));
 	} catch (error) {
         // Handle errors
         console.error(error);
     }
 }
 
-GetBergfexInfo()
+// Extract ski areas from command-line arguments (excluding the first two arguments which are node and script file)
+const skiAreas = process.argv.slice(2);
+
+GetBergfexInfo(skiAreas)
