@@ -7,6 +7,7 @@
  */
  
 const usingNodeJS = (typeof process !== 'undefined') && (process.release.name === 'node');
+console.log(process.release.name + ': ' + usingNodeJS)
 if (usingNodeJS){
     const fs = require('fs');
     const jsdom = require("jsdom");
