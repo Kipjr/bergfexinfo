@@ -9,9 +9,10 @@
 const usingNodeJS = (typeof process !== 'undefined') && (process.release.name === 'node');
 console.log(process.release.name + ': ' + usingNodeJS)
 if (usingNodeJS){
+    let JSDOM;
     const fs = require('fs');
     const jsdom = require('jsdom');
-    const { JSDOM } = jsdom;
+    JSDOM = jsdom.JSDOM;
     const jquery = require('jquery');
     
     const $ = require('jquery')(new jsdom.JSDOM().window);
