@@ -65,7 +65,7 @@ function parseEntry(row,type='lifte') {
         
         entry.skiArea = td1.data().value.trim();
         var pathname = td1.children()[0].pathname;
-        console.log(pathname);
+        console.log(td1.children());
         entry.slug = pathname.split('/')[1];
         entry.valley =  parseInt(td2.data().value);
         entry.berg =  parseInt(td3.data().value);
@@ -166,7 +166,7 @@ async function GetBergfexInfo(){
                 return 0
             } 
         })
-        console.log(allSnowReports);
+        //console.log(allSnowReports);
         for (var i=0; i<config.skiAreas.length; i++) {
             console.log("searching for " + config.skiAreas[i]);
             var skiArea = searchData(allSnowReports, config.skiAreas[i]);
