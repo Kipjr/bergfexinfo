@@ -81,7 +81,7 @@ function searchData(snow_reports, skiArea) {
     console.log('searchData: searching in snow_reports for ' + skiArea);
     for (var i=0; i<snow_reports.length; i++) {
         var regex = new RegExp(skiArea);
-        if( regex.test('^' + snow_reports[i].slug + '$')){
+        if( regex.test('^' + snow_reports[i].skiArea + '$')){
             return snow_reports[i];
         };
     }
@@ -183,7 +183,7 @@ async function GetBergfexInfo(){
             }
         }
         console.log(selSnowReports)
-        if (usingNodeJS){
+        if (usingNodeJS && selSnowReports.length > 0){
             fs.writeFileSync('snow_reports.json', JSON.stringify(selSnowReports, null, 2));
         }
     } catch (error) {
