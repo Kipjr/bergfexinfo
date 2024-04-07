@@ -6,7 +6,7 @@
  * Apache 2.0 Licensed.
  */
 const fs = require('fs');
-const jsdom = require("jsdom");
+var jsdom = require('jsdom');
 $ = require('jquery')(new jsdom.JSDOM().window);
 
 var config= {
