@@ -6,6 +6,7 @@
  * Apache 2.0 Licensed.
  */
 const fs = require('fs');
+const jsdom = require("jsdom");
 
 var config= {
 	updateInterval: 30 * 60 * 1000,
@@ -74,8 +75,10 @@ function searchData(snow_reports, skiarea) {
 async function getHTMLDoc(URL) {
 	var response = await fetch(URL);
 	var responseText = await response.text();
-	var parser = new DOMParser();
-	var htmlDoc = parser.parseFromString(responseText, 'text/html');
+	var htmlDoc = new jsdom.JSDOM(responseText);
+	
+	//var parser = new DOMParser();
+	//var htmlDoc = parser.parseFromString(responseText, 'text/html');
 	return htmlDoc;
 }
 async function getSkiAreaInfo(slugURL) {
