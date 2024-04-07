@@ -85,7 +85,7 @@ async function getHTMLDoc(URL) {
     var response = await fetch(URL);
     var responseText = await response.text();
     if (usingNodeJS){
-        var htmlDoc = new JSDOM(`responseText`);
+        var htmlDoc = new JSDOM(responseText).window.document; 
     } else {
         var parser = new DOMParser();
         var htmlDoc = parser.parseFromString(responseText, 'text/html');
