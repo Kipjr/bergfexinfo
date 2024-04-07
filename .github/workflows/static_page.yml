@@ -33,6 +33,8 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: '20'
+    - name: Install dependencies
+      run: npm install jsdom
     - name: Run JavaScript file
       run: node bergfex.js "silvretta-arena-ischgl" "hochfuegen"
     - name: Upload JSON files as artifacts
