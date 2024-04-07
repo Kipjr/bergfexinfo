@@ -34,7 +34,7 @@ jobs:
       with:
         node-version: '20'
     - name: Install dependencies
-      run: npm install jsdom jquery
+      run: npm install jsdom jquery node-fetch
     - name: Run JavaScript file
       run: node bergfex.js "silvretta-arena-ischgl" "hochfuegen"
     - name: Upload JSON files as artifacts
