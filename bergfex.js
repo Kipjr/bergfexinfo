@@ -5,10 +5,14 @@
  * By Juergen Wolf-Hofer, adapted by Kipjr
  * Apache 2.0 Licensed.
  */
-const fs = require('fs');
-const jsdom = require("jsdom");
-const jquery = require('jquery')
-const $ = require('jquery')(new jsdom.JSDOM().window);
+ 
+const usingNodeJS = (typeof process !== 'undefined') && (process.release.name === 'node');
+if (usingNodeJS){
+    const fs = require('fs');
+    const jsdom = require("jsdom");
+    const jquery = require('jquery')
+    const $ = require('jquery')(new jsdom.JSDOM().window);
+}
 
 var config= {
 	updateInterval: 30 * 60 * 1000,
@@ -77,10 +81,12 @@ function searchData(snow_reports, skiarea) {
 async function getHTMLDoc(URL) {
 	var response = await fetch(URL);
 	var responseText = await response.text();
-	var htmlDoc = new jsdom.JSDOM(responseText);
-	
-	//var parser = new DOMParser();
-	//var htmlDoc = parser.parseFromString(responseText, 'text/html');
+    if (usingNodeJS){
+        var htmlDoc = new jsdom.JSDOM(responseText);
+	} else {
+        var parser = new DOMParser();
+        var htmlDoc = parser.parseFromString(responseText, 'text/html');
+    }
 	return htmlDoc;
 }
 async function getSkiAreaInfo(slugURL) {
@@ -155,16 +161,18 @@ async function GetBergfexInfo(){
 			console.log(skiarea)
 			var details = await getSkiAreaInfo(skiarea.slug);
 			skiarea.details = details;
-			
-			var filename = `${skiArea.replace(/\s+/g, '_').toLowerCase()}.json`; // Generate filename based on ski area name
-            		var jsonData = JSON.stringify(skiarea, null, 2); // Get JSON data for the current ski area
-            		fs.writeFileSync(filename, jsonData); // Write JSON data to file
-            		selSnowReports.push(skiarea);
+			if (usingNodeJS){
+                var filename = `${skiArea.replace(/\s+/g, '_').toLowerCase()}.json`; // Generate filename based on ski area name
+                var jsonData = JSON.stringify(skiarea, null, 2); // Get JSON data for the current ski area
+                fs.writeFileSync(filename, jsonData); // Write JSON data to file
+            }
+            selSnowReports.push(skiarea);
 			
 		}
 		console.log(selSnowReports)
-		var json = JSON.stringify(selSnowReports);
-		fs.writeFileSync('snow_reports.json', JSON.stringify(data, null, 2));
+        if (usingNodeJS){
+            fs.writeFileSync('snow_reports.json', JSON.stringify(selSnowReports, null, 2));
+        }
 	} catch (error) {
         // Handle errors
         console.error(error);
@@ -172,7 +180,8 @@ async function GetBergfexInfo(){
 }
 
 // Extract ski areas from command-line arguments (excluding the first two arguments which are node and script file)
-const skiAreas = process.argv.slice(2);
-config.skiareas = skiAreas
-
+if (usingNodeJS){
+    const skiAreas = process.argv.slice(2);
+    config.skiareas = skiAreas
+}
 GetBergfexInfo()
