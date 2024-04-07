@@ -152,6 +152,7 @@ async function GetBergfexInfo(){
 		for (var i=0; i<config.skiareas.length; i++) {
 			console.log("searching for " + config.skiareas[i]);
 			var skiarea = searchData(allSnowReports, config.skiareas[i]);
+			console.log(skiarea)
 			var details = await getSkiAreaInfo(skiarea.slug);
 			skiarea.details = details;
 			
@@ -172,5 +173,6 @@ async function GetBergfexInfo(){
 
 // Extract ski areas from command-line arguments (excluding the first two arguments which are node and script file)
 const skiAreas = process.argv.slice(2);
+config.skiareas = skiAreas
 
-GetBergfexInfo(skiAreas)
+GetBergfexInfo()
