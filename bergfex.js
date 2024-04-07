@@ -64,9 +64,8 @@ function parseEntry(row,type='lifte') {
         var td6 = td5.next();
         
         entry.skiArea = td1.data().value.trim();
-        var pathname = td1.children()[0].pathname;
-        console.log(td1.children()[0]);
-        entry.slug = pathname.split('/')[1];
+        console.log((td1.children()[0]).pathname);
+        entry.slug = td1.children()[0].pathname.split('/')[1];
         entry.valley =  parseInt(td2.data().value);
         entry.berg =  parseInt(td3.data().value);
         entry.new = parseInt(td4.data().value);
