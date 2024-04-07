@@ -10,6 +10,7 @@ const usingNodeJS = (typeof process !== 'undefined') && (process.release.name ==
 console.log(usingNodeJS);
 let JSDOM;
 let $;
+let fs;
 if (usingNodeJS){
     const fs = require('fs');
     const jsdom = require('jsdom');
