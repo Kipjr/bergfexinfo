@@ -75,6 +75,7 @@ function parseEntry(row,type='lifte') {
 }
 
 function searchData(snow_reports, skiArea) {
+    console.log('searchData: searching in snow_reports for ' + skiArea);
     for (var i=0; i<snow_reports.length; i++) {
         var regex = new RegExp(skiArea);
         if( regex.test('^' + snow_reports[i].slug + '$')){
@@ -162,6 +163,7 @@ async function GetBergfexInfo(){
                 return 0
             } 
         })
+        console.log(allSnowReports);
         for (var i=0; i<config.skiAreas.length; i++) {
             console.log("searching for " + config.skiAreas[i]);
             var skiArea = searchData(allSnowReports, config.skiAreas[i]);
