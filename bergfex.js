@@ -7,7 +7,7 @@
  */
 
 const usingNodeJS = (typeof process !== 'undefined') && (process.release.name === 'node');
-console.log(process.release.name + ': ' + usingNodeJS)
+console.log(usingNodeJS);
 let JSDOM;
 let $;
 if (usingNodeJS){
