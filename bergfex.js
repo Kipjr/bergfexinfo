@@ -5,176 +5,177 @@
  * By Juergen Wolf-Hofer, adapted by Kipjr
  * Apache 2.0 Licensed.
  */
- 
+
 const usingNodeJS = (typeof process !== 'undefined') && (process.release.name === 'node');
 console.log(process.release.name + ': ' + usingNodeJS)
 if (usingNodeJS){
     const fs = require('fs');
-    const jsdom = require("jsdom");
-    const jquery = require('jquery')
+    const jsdom = require('jsdom');
+    const jquery = require('jquery');
+    
     const $ = require('jquery')(new jsdom.JSDOM().window);
 }
 
 var config= {
-	updateInterval: 30 * 60 * 1000,
-	animationSpeed: 0,
-	header: 'Bergfex.at',
-	skiareas: [
-			'silvretta-arena-ischgl-samnaun',
-			'hochzillertal',
-		],
-	shortenArea: 20,
-	cssclassrow: 'light',
-	cssclassheader: 'normal'
+    updateInterval: 30 * 60 * 1000,
+    animationSpeed: 0,
+    header: 'Bergfex.at',
+    skiAreas: [
+            'silvretta-arena-ischgl-samnaun',
+            'hochzillertal',
+        ],
+    shortenArea: 20,
+    cssclassrow: 'light',
+    cssclassheader: 'normal'
 }
 
 function parseEntry(row,type='lifte') {
-	// lifte,pisten,area
-	
+    // lifte,pisten,area
+    
 
-	if(type == 'lifte'){
-		var entry = {status: "",type: "", short: "", name: "", length: "" };
-		entry.status = row.find("." + 'lifte-icon-status' ).children()[0].classList[1] == 'icon-status1' ; //icon | type of lift/piste
-		entry.short = row.find("." + 'lifte-kuerzel' ).text().trim() //short
-		entry.name = row.find("." + 'lifte-name' ).text().trim() ; //name
-		entry.type = row.find("." + 'lifte-typname' ).text().trim() ; //type
-		entry.length = row.find("." + 'lifte-laenge' ).text().trim() ; //length
-	} 
-	if(type == 'pisten'){
-		var entry = {status: "",type: "", short: "", name: "", length: "" };
-		entry.status = row.find("." + 'pisten-icon-status' ).children()[0].classList[1] == 'icon-status1' ; //icon | type of lift/piste
-		entry.short = row.find("." + 'pisten-kuerzel' ).text().trim(); //short
-		entry.name = row.find("." + 'pisten-name' ).text().trim() ; //name
-		entry.type = row.find("." + 'icon-pisten' )[0].title.trim() ; //type
-		entry.length = row.find("." + 'pisten-laenge' ).text().trim() ; //length	
-	}
-	if(type == 'area'){
-		var entry = {skiarea: "",slug: "", valley: 0, berg: 0, new: 0, lift: {open: 0, total:0} };
-		var td1 = row.children().first();
-		var td2 = td1.next();
-		var td3 = td2.next();
-		var td4 = td3.next();
-		var td5 = td4.next();
-		var td6 = td5.next();
-		
-		entry.skiarea = td1.data().value.trim();
-		entry.slug = td1.children()[0].pathname.split("/")[1];
-		entry.valley =  parseInt(td2.data().value);
-		entry.berg =  parseInt(td3.data().value);
-		entry.new = parseInt(td4.data().value);
-		entry.lift.open  = parseInt(td5.text().trim().split("/")[0]);
-		entry.lift.total = parseInt(td5.text().trim().split("/")[1]);
-		entry.update = td6.data().value;
-	}
-	return entry;
+    if(type == 'lifte'){
+        var entry = {status: "",type: "", short: "", name: "", length: "" };
+        entry.status = row.find("." + 'lifte-icon-status' ).children()[0].classList[1] == 'icon-status1' ; //icon | type of lift/piste
+        entry.short = row.find("." + 'lifte-kuerzel' ).text().trim() //short
+        entry.name = row.find("." + 'lifte-name' ).text().trim() ; //name
+        entry.type = row.find("." + 'lifte-typname' ).text().trim() ; //type
+        entry.length = row.find("." + 'lifte-laenge' ).text().trim() ; //length
+    } 
+    if(type == 'pisten'){
+        var entry = {status: "",type: "", short: "", name: "", length: "" };
+        entry.status = row.find("." + 'pisten-icon-status' ).children()[0].classList[1] == 'icon-status1' ; //icon | type of lift/piste
+        entry.short = row.find("." + 'pisten-kuerzel' ).text().trim(); //short
+        entry.name = row.find("." + 'pisten-name' ).text().trim() ; //name
+        entry.type = row.find("." + 'icon-pisten' )[0].title.trim() ; //type
+        entry.length = row.find("." + 'pisten-laenge' ).text().trim() ; //length	
+    }
+    if(type == 'area'){
+        var entry = {skiArea: "",slug: "", valley: 0, berg: 0, new: 0, lift: {open: 0, total:0} };
+        var td1 = row.children().first();
+        var td2 = td1.next();
+        var td3 = td2.next();
+        var td4 = td3.next();
+        var td5 = td4.next();
+        var td6 = td5.next();
+        
+        entry.skiArea = td1.data().value.trim();
+        entry.slug = td1.children()[0].pathname.split("/")[1];
+        entry.valley =  parseInt(td2.data().value);
+        entry.berg =  parseInt(td3.data().value);
+        entry.new = parseInt(td4.data().value);
+        entry.lift.open  = parseInt(td5.text().trim().split("/")[0]);
+        entry.lift.total = parseInt(td5.text().trim().split("/")[1]);
+        entry.update = td6.data().value;
+    }
+    return entry;
 }
 
-function searchData(snow_reports, skiarea) {
-	for (var i=0; i<snow_reports.length; i++) {
-		var regex = new RegExp(skiarea);
-		if( regex.test('^' + snow_reports[i].slug + '$')){
-			return snow_reports[i];
-		};
-	}
-	return null;
+function searchData(snow_reports, skiArea) {
+    for (var i=0; i<snow_reports.length; i++) {
+        var regex = new RegExp(skiArea);
+        if( regex.test('^' + snow_reports[i].slug + '$')){
+            return snow_reports[i];
+        };
+    }
+    return null;
 }
 
 async function getHTMLDoc(URL) {
-	var response = await fetch(URL);
-	var responseText = await response.text();
+    var response = await fetch(URL);
+    var responseText = await response.text();
     if (usingNodeJS){
         var htmlDoc = new jsdom.JSDOM(responseText);
-	} else {
+    } else {
         var parser = new DOMParser();
         var htmlDoc = parser.parseFromString(responseText, 'text/html');
     }
-	return htmlDoc;
+    return htmlDoc;
 }
 async function getSkiAreaInfo(slugURL) {
-	var URL = 'https://www.bergfex.at/' + slugURL + '/schneebericht/'
-	var liftReports = [];
-	var pisteReports = [];
-	var details = {}
-	
-	var htmlDoc = await getHTMLDoc(URL);
+    var URL = 'https://www.bergfex.at/' + slugURL + '/schneebericht/'
+    var liftReports = [];
+    var pisteReports = [];
+    var details = {}
+    
+    var htmlDoc = await getHTMLDoc(URL);
 
-	var tbody = $(htmlDoc).find("table:first tr.row0")
-	tbody.each(function() {
-		var entry = parseEntry($(this),'lifte');
-		liftReports.push(entry);
-	});
-	var tbody =  $(htmlDoc).find("table:first tr.row1")
+    var tbody = $(htmlDoc).find("table:first tr.row0")
+    tbody.each(function() {
+        var entry = parseEntry($(this),'lifte');
+        liftReports.push(entry);
+    });
+    var tbody =  $(htmlDoc).find("table:first tr.row1")
 
-	tbody.each(function() {
-		var entry = parseEntry($(this),'lifte');
-		liftReports.push(entry);
-	});
-	var tbody = $(htmlDoc).find("table:last tr.row0")
-	tbody.each(function() {
-		var entry = parseEntry($(this),'pisten');
-		pisteReports.push(entry);
-	});
-	var tbody =  $(htmlDoc).find("table:last tr.row1")
+    tbody.each(function() {
+        var entry = parseEntry($(this),'lifte');
+        liftReports.push(entry);
+    });
+    var tbody = $(htmlDoc).find("table:last tr.row0")
+    tbody.each(function() {
+        var entry = parseEntry($(this),'pisten');
+        pisteReports.push(entry);
+    });
+    var tbody =  $(htmlDoc).find("table:last tr.row1")
 
-	tbody.each(function() {
-		var entry = parseEntry($(this),'pisten');
-		pisteReports.push(entry);
-	});
-	return details = {
-		liften: liftReports,
-		pisten: pisteReports
-	};
+    tbody.each(function() {
+        var entry = parseEntry($(this),'pisten');
+        pisteReports.push(entry);
+    });
+    return details = {
+        liften: liftReports,
+        pisten: pisteReports
+    };
 }
 
 async function GetBergfexInfo(){
-	try {
-		var htmlDoc;
-		var allSnowReports = [];
-		var selSnowReports = []
-		var htmlDoc = await getHTMLDoc('https://www.bergfex.at/oesterreich/schneewerte/');
-		
+    try {
+        var htmlDoc;
+        var allSnowReports = [];
+        var selSnowReports = []
+        var htmlDoc = await getHTMLDoc('https://www.bergfex.at/oesterreich/schneewerte/');
+        
 
-		var tbody =  $(htmlDoc).find('tr.tr0');
-		tbody.each(function() {
-			var entry = parseEntry($(this),'area');
-			allSnowReports.push(entry);
-		});
-		var tbody =  $(htmlDoc).find('tr.tr1');
+        var tbody =  $(htmlDoc).find('tr.tr0');
+        tbody.each(function() {
+            var entry = parseEntry($(this),'area');
+            allSnowReports.push(entry);
+        });
+        var tbody =  $(htmlDoc).find('tr.tr1');
 
-		tbody.each(function() {
-			var entry = parseEntry($(this),'area');
-			allSnowReports.push(entry);
-		});
-		allSnowReports.sort(function(a,b){ 
-			if(a.skiarea < b.skiarea) { 
-				return -1
-			}
-			if(a.skiarea > b.skiarea) { 
-				return 1
-			} 	
-			else { 
-				return 0
-			} 
-		})
-		for (var i=0; i<config.skiareas.length; i++) {
-			console.log("searching for " + config.skiareas[i]);
-			var skiarea = searchData(allSnowReports, config.skiareas[i]);
-			console.log(skiarea)
-			var details = await getSkiAreaInfo(skiarea.slug);
-			skiarea.details = details;
-			if (usingNodeJS){
+        tbody.each(function() {
+            var entry = parseEntry($(this),'area');
+            allSnowReports.push(entry);
+        });
+        allSnowReports.sort(function(a,b){ 
+            if(a.skiArea < b.skiArea) { 
+                return -1
+            }
+            if(a.skiArea > b.skiArea) { 
+                return 1
+            } 	
+            else { 
+                return 0
+            } 
+        })
+        for (var i=0; i<config.skiAreas.length; i++) {
+            console.log("searching for " + config.skiAreas[i]);
+            var skiArea = searchData(allSnowReports, config.skiAreas[i]);
+            console.log(skiArea)
+            var details = await getSkiAreaInfo(skiArea.slug);
+            skiArea.details = details;
+            if (usingNodeJS){
                 var filename = `${skiArea.replace(/\s+/g, '_').toLowerCase()}.json`; // Generate filename based on ski area name
-                var jsonData = JSON.stringify(skiarea, null, 2); // Get JSON data for the current ski area
+                var jsonData = JSON.stringify(skiArea, null, 2); // Get JSON data for the current ski area
                 fs.writeFileSync(filename, jsonData); // Write JSON data to file
             }
-            selSnowReports.push(skiarea);
-			
-		}
-		console.log(selSnowReports)
+            selSnowReports.push(skiArea);
+            
+        }
+        console.log(selSnowReports)
         if (usingNodeJS){
             fs.writeFileSync('snow_reports.json', JSON.stringify(selSnowReports, null, 2));
         }
-	} catch (error) {
+    } catch (error) {
         // Handle errors
         console.error(error);
     }
@@ -183,6 +184,6 @@ async function GetBergfexInfo(){
 // Extract ski areas from command-line arguments (excluding the first two arguments which are node and script file)
 if (usingNodeJS){
     const skiAreas = process.argv.slice(2);
-    config.skiareas = skiAreas
+    config.skiAreas = skiAreas
 }
 GetBergfexInfo()
