@@ -169,9 +169,9 @@ async function GetBergfexInfo(){
             console.log("searching for " + config.skiAreas[i]);
             var skiArea = searchData(allSnowReports, config.skiAreas[i]);
             if (skiArea) {
-                console.log(skiArea)
                 var details = await getSkiAreaInfo(skiArea.slug);
                 skiArea.details = details;
+                console.log(skiArea)
                 if (usingNodeJS){
                     var filename = skiArea.slug + '.json'; // Generate filename based on ski area name
                     var jsonData = JSON.stringify(skiArea, null, 2); // Get JSON data for the current ski area
