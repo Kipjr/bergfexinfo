@@ -64,7 +64,6 @@ function parseEntry(row,type='lifte') {
         var td6 = td5.next();
         
         entry.skiArea = td1.data().value.trim();
-        console.log( td1.children()[0].getAttribute('href') );
         entry.slug = td1.children()[0].getAttribute('href').split('/')[1];
         entry.valley =  parseInt(td2.data().value);
         entry.berg =  parseInt(td3.data().value);
@@ -80,7 +79,7 @@ function searchData(snow_reports, skiArea) {
     console.log('searchData: searching in snow_reports for ' + skiArea);
     for (var i=0; i<snow_reports.length; i++) {
         var regex = new RegExp(skiArea);
-        if( regex.test('^' + snow_reports[i].skiArea + '$')){
+        if( regex.test('^' + snow_reports[i].slug + '$')){
             return snow_reports[i];
         };
     }
@@ -165,7 +164,7 @@ async function GetBergfexInfo(){
                 return 0
             } 
         })
-        //console.log(allSnowReports);
+        console.log(allSnowReports);
         for (var i=0; i<config.skiAreas.length; i++) {
             console.log("searching for " + config.skiAreas[i]);
             var skiArea = searchData(allSnowReports, config.skiAreas[i]);
