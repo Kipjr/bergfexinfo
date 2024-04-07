@@ -9,13 +9,15 @@
 const usingNodeJS = (typeof process !== 'undefined') && (process.release.name === 'node');
 console.log(process.release.name + ': ' + usingNodeJS)
 let JSDOM;
+let $;
 if (usingNodeJS){
     const fs = require('fs');
     const jsdom = require('jsdom');
     JSDOM = jsdom.JSDOM;
     const jquery = require('jquery');
-    
-    const $ = require('jquery')(new jsdom.JSDOM().window);
+    $ = jquery(new JSDOM().window);
+} else {
+    $ = window.$; // Initialize $ in browser environment
 }
 
 var config= {
