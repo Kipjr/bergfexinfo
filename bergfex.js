@@ -12,7 +12,7 @@ let JSDOM;
 let $;
 let fs;
 if (usingNodeJS){
-    const fs = require('fs');
+    fs = require('fs');
     const jsdom = require('jsdom');
     JSDOM = jsdom.JSDOM;
     const jquery = require('jquery');
