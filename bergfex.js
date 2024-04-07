@@ -8,10 +8,7 @@
 const fs = require('fs');
 const jsdom = require("jsdom");
 const jquery = require('jquery')
-
-const { JSDOM } = jsdom;
-const dom = new JSDOM(data);
-const $ = jquery(dom.window);
+const $ = require('jquery')(new jsdom.JSDOM().window);
 
 var config= {
 	updateInterval: 30 * 60 * 1000,
