@@ -8,8 +8,8 @@
 
 const usingNodeJS = (typeof process !== 'undefined') && (process.release.name === 'node');
 console.log(process.release.name + ': ' + usingNodeJS)
+let JSDOM;
 if (usingNodeJS){
-    let JSDOM;
     const fs = require('fs');
     const jsdom = require('jsdom');
     JSDOM = jsdom.JSDOM;
