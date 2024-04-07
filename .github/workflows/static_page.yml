@@ -41,9 +41,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: json-artifacts
-        path: |
-          silvretta-arena-ischgl-samnau.json
-          hochfuegen.json
+        path: '*.json'
 
    deploy:
     environment:
@@ -58,7 +56,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '*.json'
+           path: '.'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
