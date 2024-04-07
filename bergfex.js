@@ -97,6 +97,7 @@ async function getHTMLDoc(URL) {
 }
 async function getSkiAreaInfo(slugURL) {
     var URL = 'https://www.bergfex.at/' + slugURL + '/schneebericht/'
+    console.log(URL);
     var liftReports = [];
     var pisteReports = [];
     var details = {}
@@ -164,16 +165,17 @@ async function GetBergfexInfo(){
         for (var i=0; i<config.skiAreas.length; i++) {
             console.log("searching for " + config.skiAreas[i]);
             var skiArea = searchData(allSnowReports, config.skiAreas[i]);
-            console.log(skiArea)
-            var details = await getSkiAreaInfo(skiArea.slug);
-            skiArea.details = details;
-            if (usingNodeJS){
-                var filename = `${skiArea.slug.replace(/\s+/g, '_').toLowerCase()}.json`; // Generate filename based on ski area name
-                var jsonData = JSON.stringify(skiArea, null, 2); // Get JSON data for the current ski area
-                fs.writeFileSync(filename, jsonData); // Write JSON data to file
+            if (skiArea) {
+                console.log(skiArea)
+                var details = await getSkiAreaInfo(skiArea.slug);
+                skiArea.details = details;
+                if (usingNodeJS){
+                    var filename = `${skiArea.slug.replace(/\s+/g, '_').toLowerCase()}.json`; // Generate filename based on ski area name
+                    var jsonData = JSON.stringify(skiArea, null, 2); // Get JSON data for the current ski area
+                    fs.writeFileSync(filename, jsonData); // Write JSON data to file
+                }
+                selSnowReports.push(skiArea);
             }
-            selSnowReports.push(skiArea);
-            
         }
         console.log(selSnowReports)
         if (usingNodeJS){
