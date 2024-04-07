@@ -7,6 +7,7 @@
  */
 const fs = require('fs');
 const jsdom = require("jsdom");
+var $ = require("jquery");
 
 var config= {
 	updateInterval: 30 * 60 * 1000,
