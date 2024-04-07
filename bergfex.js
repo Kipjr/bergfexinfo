@@ -11,6 +11,7 @@ console.log(process.release.name + ': ' + usingNodeJS)
 if (usingNodeJS){
     const fs = require('fs');
     const jsdom = require('jsdom');
+    const { JSDOM } = jsdom;
     const jquery = require('jquery');
     
     const $ = require('jquery')(new jsdom.JSDOM().window);
@@ -84,7 +85,7 @@ async function getHTMLDoc(URL) {
     var response = await fetch(URL);
     var responseText = await response.text();
     if (usingNodeJS){
-        var htmlDoc = new jsdom.JSDOM(responseText);
+        var htmlDoc = new JSDOM(`responseText`);
     } else {
         var parser = new DOMParser();
         var htmlDoc = parser.parseFromString(responseText, 'text/html');
