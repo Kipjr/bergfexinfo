@@ -165,7 +165,7 @@ async function GetBergfexInfo(){
             var details = await getSkiAreaInfo(skiArea.slug);
             skiArea.details = details;
             if (usingNodeJS){
-                var filename = `${skiArea.replace(/\s+/g, '_').toLowerCase()}.json`; // Generate filename based on ski area name
+                var filename = `${skiArea.slug.replace(/\s+/g, '_').toLowerCase()}.json`; // Generate filename based on ski area name
                 var jsonData = JSON.stringify(skiArea, null, 2); // Get JSON data for the current ski area
                 fs.writeFileSync(filename, jsonData); // Write JSON data to file
             }
