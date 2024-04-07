@@ -6,8 +6,12 @@
  * Apache 2.0 Licensed.
  */
 const fs = require('fs');
-var jsdom = require('jsdom');
-$ = require('jquery')(new jsdom.JSDOM().window);
+const jsdom = require("jsdom");
+const jquery = require('jquery')
+
+const { JSDOM } = jsdom;
+const dom = new JSDOM(data);
+const $ = jquery(dom.window);
 
 var config= {
 	updateInterval: 30 * 60 * 1000,
