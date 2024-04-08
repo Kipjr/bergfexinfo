@@ -1,26 +1,27 @@
 {
-  "name": "MMM-bergfex",
+  "name": "bergfexinfo",
   "description": "Displays Bergfex.at Snow Reports",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nebulx29/MMM-bergfex"
+    "url": "git+https://github.com/kipjr/bergfexinfo"
   },
   "keywords": [
     "Bergfex",
     "weather forecast",
     "snow forecast",
-	"skiing",
-	"austria"
+    "skiing",
+    "austria"
   ],
-  "author": "nebulx29",
+  "author": "kipjr",
   "license": "Apache 2.0",
   "bugs": {
-    "url": "https://github.com/nebulx29/MMM-bergfex/issues"
+    "url": "https://github.com/kipjr/bergfexinfo/issues"
   },
-  "homepage": "https://github.com/nebulx29/MMM-bergfex",
+  "homepage": "https://github.com/kipjr/bergfexinfo",
   "dependencies": {
-    "request": "latest",
-    "cheerio": "latest"
+    "jquery": "^3.7.1",
+    "jsdom": "^24.0.0",
+    "node-fetch": "^3.3.2",
+    "request": "latest"
   }
-
 }
