@@ -1,1 +1,10 @@
-theme: jekyll-theme-cayman
+# Site settings
+title: Bergfex Info
+description: My Skiareas
+theme: jekyll-theme-minimal
+
+# Enable data file processing
+safe: false
+
+# Specify the data source directory
+data_source: _data
