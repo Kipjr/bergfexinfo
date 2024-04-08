@@ -87,7 +87,12 @@ function searchData(snow_reports, skiArea) {
 }
 
 async function getHTMLDoc(URL) {
-    var response = await fetch(URL);
+    var response = await fetch(URL,{
+        mode: 'cors',
+        headers: {
+            'Access-Control-Allow-Origin':'*'
+        }
+    });
     var responseText = await response.text();
     if (usingNodeJS){
         var htmlDoc = new JSDOM(responseText).window.document; 
