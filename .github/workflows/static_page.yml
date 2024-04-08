@@ -75,9 +75,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Download Content Artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
-          name: skidata.zip
+          name: skidata
           path: '.'
       - name: Setup Pages
         uses: actions/configure-pages@v5
