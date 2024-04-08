@@ -1,5 +1,5 @@
 # Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+name: Create artifact & Deploy static content to Pages
 
 on:
   # Runs on pushes targeting the default branch
@@ -39,26 +39,29 @@ jobs:
       with:
         node-version: '20'
     - name: Cache node_modules
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         path: node_modules
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-node-
     - name: Restore node_modules cache
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         path: node_modules
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
     - name: Install dependencies
       run: npm install jsdom jquery node-fetch
     - name: Run JavaScript file
-      run: node bergfex.js ${{ github.event.inputs.ski-areas }}
+      run: node bergfex.js ${{ github.event.inputs['ski-areas'] }}
     - name: Upload JSON files as artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
-        name: json-artifacts
-        path: '*.json'
+        name: skidata
+        path: |
+          *.json
+          !package-lock.json
+          !package.json
 
    deploy:
     environment:
