@@ -1,0 +1,30 @@
+---
+layout: default
+title: Ski Areas
+---
+
+<h1>Ski Areas</h1>
+
+{% for area in site.data.skidata %}
+  <div>
+    <h2>{{ area.skiArea }}</h2>
+    <p>Valley elevation: {{ area.valley }}</p>
+    <p>Mountain elevation: {{ area.berg }}</p>
+    <p>Lifts open: {{ area.lift.open }} / {{ area.lift.total }}</p>
+    <p>Last update: {{ area.update }}</p>
+
+    <h3>Lifts</h3>
+    <ul>
+      {% for lift in area.details.liften %}
+        <li>{{ lift.name }} - {{ lift.type }}</li>
+      {% endfor %}
+    </ul>
+
+    <h3>Pistes</h3>
+    <ul>
+      {% for piste in area.details.pisten %}
+        <li>{{ piste.name }} - {{ piste.type }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endfor %}
