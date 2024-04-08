@@ -197,7 +197,8 @@ async function GetBergfexInfo(){
 
 // Extract ski areas from command-line arguments (excluding the first two arguments which are node and script file)
 if (usingNodeJS){
-    const skiAreas = process.argv.slice(2);
-    config.skiAreas = skiAreas
+    const args = process.argv.slice(2);
+    const skiAreas = args.length > 0 ? args : ['silvretta-arena-ischgl', 'hochfuegen'];
+    config.skiAreas = skiAreas 
 }
 GetBergfexInfo()
