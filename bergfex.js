@@ -169,7 +169,7 @@ async function GetBergfexInfo(){
                 return 0
             } 
         })
-        console.log(allSnowReports);
+        console.log("allSnowReports: " + allSnowReports.length);
         for (var i=0; i<config.skiAreas.length; i++) {
             console.log("searching for " + config.skiAreas[i]);
             var skiArea = searchData(allSnowReports, config.skiAreas[i]);
@@ -180,12 +180,12 @@ async function GetBergfexInfo(){
                 if (usingNodeJS){
                     var filename = skiArea.slug + '.json'; // Generate filename based on ski area name
                     var jsonData = JSON.stringify(skiArea, null, 2); // Get JSON data for the current ski area
-                    fs.writeFileSync(filename, jsonData); // Write JSON data to file
+                    console.log(fs.writeFileSync(filename, jsonData)); // Write JSON data to file
                 }
                 selSnowReports.push(skiArea);
             }
         }
-        console.log(selSnowReports)
+        //console.log(selSnowReports)
         if (usingNodeJS && selSnowReports.length > 0){
             fs.writeFileSync('snow_reports.json', JSON.stringify(selSnowReports, null, 2));
         }
