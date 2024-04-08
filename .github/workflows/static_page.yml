@@ -10,6 +10,11 @@ on:
   
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      ski-areas:
+        description: 'Comma-separated list of ski areas'
+        required: false
+        default: 'silvretta-arena-ischgl,hochfuegen'
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -33,10 +38,22 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: '20'
+    - name: Cache node_modules
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+    - name: Restore node_modules cache
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
     - name: Install dependencies
       run: npm install jsdom jquery node-fetch
     - name: Run JavaScript file
-      run: node bergfex.js "silvretta-arena-ischgl" "hochfuegen"
+      run: node bergfex.js ${{ github.event.inputs.ski-areas }}
     - name: Upload JSON files as artifacts
       uses: actions/upload-artifact@v2
       with:
