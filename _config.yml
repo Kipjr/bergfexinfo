@@ -7,3 +7,6 @@ safe: false
 
 # Specify the data source directory
 collections_dir: _data
+
+include:
+  - "*.json"
