@@ -6,4 +6,4 @@ description: My Skiareas
 safe: false
 
 # Specify the data source directory
-data_source: '.'
+collections_dir: _data
