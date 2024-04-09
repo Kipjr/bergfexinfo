@@ -74,11 +74,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Download Content Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: skidata
-          path: '.'
       - name: Setup Ruby
         uses: ruby/setup-ruby@8575951200e472d5f2d95c625da0c7bec8217c42 # v1.161.0
         with:
@@ -93,6 +88,11 @@ jobs:
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
+      - name: Download Content Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: skidata
+          path: '._data/_site'          
       - name: Upload artifact
         # Automatically uploads an artifact from the './_site' directory by default
         uses: actions/upload-pages-artifact@v3
