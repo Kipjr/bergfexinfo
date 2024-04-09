@@ -83,16 +83,16 @@ jobs:
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
+      - name: Download Content Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: skidata
+          path: '_data'        
       - name: Build with Jekyll
         # Outputs to the './_site' directory by default
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
-      - name: Download Content Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: skidata
-          path: '_data'          
       - name: Upload artifact
         # Automatically uploads an artifact from the './_site' directory by default
         uses: actions/upload-pages-artifact@v3
