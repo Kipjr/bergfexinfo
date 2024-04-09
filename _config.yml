@@ -9,4 +9,4 @@ safe: false
 collections_dir: _data
 
 include:
-  - "*.json"
+  - "snow_reports.json"
