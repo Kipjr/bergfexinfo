@@ -16,14 +16,14 @@ title: Ski Areas
     <h3>Lifts</h3>
     <ul>
       {% for lift in area.details.liften %}
-        <li>{{ lift.status}} - {{ lift.name }} - {{ lift.type }}</li>
+        <li>{{ lift.status}} - {{ lift.short }} - {{ lift.type }}</li>
       {% endfor %}
     </ul>
 
     <h3>Pistes</h3>
     <ul>
       {% for piste in area.details.pisten %}
-        <li>{{ piste.status }} - {{ piste.type }} - {{ piste.name }} - {{ piste.length }}</li>
+        <li>{{ piste.status }} - {{ piste.type }} - {{ piste.short }} - {{ piste.name }} - {{ piste.length }}</li>
       {% endfor %}
     </ul>
   </div>
