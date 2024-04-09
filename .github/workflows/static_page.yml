@@ -61,7 +61,7 @@ jobs:
       with:
         name: skidata
         path: |
-          *.json
+          snow_reports.json
           !package-lock.json
           !package.json
 
