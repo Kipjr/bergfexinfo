@@ -8,15 +8,15 @@ title: Ski Areas
 {% for area in site.data.snow_reports %}
   <div>
     <h2>{{ area.skiArea }}</h2>
-    <p>Valley elevation: {{ area.valley }}</p>
-    <p>Mountain elevation: {{ area.berg }}</p>
+    <p>Valley snow: {{ area.valley }}</p>
+    <p>Mountain snow: {{ area.berg }}</p>
     <p>Lifts open: {{ area.lift.open }} / {{ area.lift.total }}</p>
     <p>Last update: {{ area.update }}</p>
 
     <h3>Lifts</h3>
     <ul>
       {% for lift in area.details.liften %}
-        <li>{{ lift.status}} - {{ lift.short }} - {{ lift.type }}</li>
+        <li>{{ lift.status}} - {{ lift.short }} - {{ lift.name }} - {{ lift.type }}</li>
       {% endfor %}
     </ul>
 
