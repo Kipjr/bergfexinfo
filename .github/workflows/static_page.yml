@@ -14,9 +14,9 @@ on:
   workflow_dispatch:
     inputs:
       ski-areas:
-        description: 'Comma-separated list of ski areas'
+        description: 'space-separated list of ski areas'
         required: false
-        default: 'silvretta-arena-ischgl,hochfuegen'
+        default: 'silvretta-arena-ischgl hochfuegen'
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
