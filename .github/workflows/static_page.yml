@@ -66,6 +66,7 @@ jobs:
           snow_reports.json
 
    build:
+    if: github.event_name == 'release' && github.event.action == 'created'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
