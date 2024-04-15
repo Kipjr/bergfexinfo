@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Ski Areas
+datatable: true
 ---
 
 <h1>Ski Areas</h1>
@@ -14,17 +15,21 @@ title: Ski Areas
     <p>Last update: {{ area.update }}</p>
 
     <h3>Lifts</h3>
-    <ul>
+    <div class="datatable-begin"></div>
+      Status    | Short      | Name | Type
+      --------- | ---------- | ---- | ----
       {% for lift in area.details.liften %}
-        <li>{{ lift.status}} - {{ lift.short }} - {{ lift.name }} - {{ lift.type }}</li>
+      {{ lift.status}} | {{ lift.short }} | {{ lift.name }} | {{ lift.type }}
       {% endfor %}
-    </ul>
+    <div class="datatable-end"></div>
 
     <h3>Pistes</h3>
-    <ul>
+    <div class="datatable-begin"></div>
       {% for piste in area.details.pisten %}
-        <li>{{ piste.status }} - {{ piste.type }} - {{ piste.short }} - {{ piste.name }} - {{ piste.length }}</li>
+        Status    | Type       | Short | Name | Length
+        --------- | ---------- | ----- | ---- | ------
+        {{ piste.status }} | {{ piste.type }} | {{ piste.short }} | {{ piste.name }} | {{ piste.length }}
       {% endfor %}
-    </ul>
+    <div class="datatable-end"></div>
   </div>
 {% endfor %}
