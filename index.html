@@ -15,21 +15,65 @@ datatable: true
     <p>Last update: {{ area.update }}</p>
 
     <h3>Lifts</h3>
-    <div class="datatable-begin"></div>
-      Status    | Short      | Name | Type
-      --------- | ---------- | ---- | ----
-      {% for lift in area.details.liften %}
-      {{ lift.status}} | {{ lift.short }} | {{ lift.name }} | {{ lift.type }}
-      {% endfor %}
-    <div class="datatable-end"></div>
+<table class="display">
+<colgroup>
+<col width="15%" />
+<col width="20%" />
+<col width="45%" />
+<col width="20%" />  
+</colgroup>
+<thead>
+<tr class="header">
+<th>Status</th>
+<th>Short</th>
+<th>Name</th>
+<th>Type</th>  
+</tr>
+</thead>
+<tbody>
+{% for lift in area.details.liften %}
+<tr>
+<td markdown="span">{{lift.status}}</td>
+<td markdown="span">{{lift.short}}</td>
+<td markdown="span">{{lift.name}}</td>
+<td markdown="span">{{lift.type}}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
 
-    <h3>Pistes</h3>
-    <div class="datatable-begin"></div>
-      {% for piste in area.details.pisten %}
-        Status    | Type       | Short | Name | Length
-        --------- | ---------- | ----- | ---- | ------
-        {{ piste.status }} | {{ piste.type }} | {{ piste.short }} | {{ piste.name }} | {{ piste.length }}
-      {% endfor %}
-    <div class="datatable-end"></div>
-  </div>
+<h3>Pistes</h3>
+    
+{% for piste in area.details.pisten %}
+
+<table class="display">
+<colgroup>
+<col width="5%" />
+<col width="10%" />
+<col width="10%" />
+<col width="50%" />
+<col width="25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Status</th>
+<th>Type</th>
+<th>Short</th>
+<th>Name</th>
+<th>Length</th>
+</tr>
+</thead>
+<tbody>
+  {% for piste in area.details.pisten %}
+<tr>
+<td markdown="span">{{piste.status}}</td>
+<td markdown="span">{{piste.type}}</td>
+<td markdown="span">{{piste.short}}</td>
+<td markdown="span">{{piste.name}}</td>
+<td markdown="span">{{piste.length}}</td> 
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
 {% endfor %}
